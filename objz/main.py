@@ -5,7 +5,11 @@
 "main"
 
 
-from objr import launch
+import sys
+import termios
+
+
+from objr import errors, launch
 
 
 from objz.console import Console
@@ -57,9 +61,27 @@ def scan(modstr, *pkgs, disable=""):
     return mds
 
 
+def wrap(func):
+    "restore console."
+    old2 = None
+    try:
+        old2 = termios.tcgetattr(sys.stdin.fileno())
+    except termios.error:
+        pass
+    try:
+        func()
+    except (KeyboardInterrupt, EOFError):
+        print("")
+    finally:
+        if old2:
+            termios.tcsetattr(sys.stdin.fileno(), termios.TCSADRAIN, old2)
+    errors()
+
+
 def __dir__():
     return (
         'cmnd',
         'init',
-        'scan'
+        'scan',
+        'wrap'
     )
