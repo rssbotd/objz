@@ -19,7 +19,7 @@ import _thread
 from objx import Object, edit, fmt, keys
 from objr import Reactor, later, launch
 from objz import Default, Fleet, Event, Logging
-from objz import debug, last, sync
+from objz import command, debug, last, sync
 
 
 Logging.filter = ["PING", "PONG", "PRIVMSG"]

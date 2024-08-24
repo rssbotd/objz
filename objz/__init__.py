@@ -14,25 +14,7 @@ from .parse   import *
 from .persist import *
 from .runtime import STARTTIME, Cfg
 from .utils   import *
-
-
-def __persist__():
-    return (
-        'STARTTIME',
-        'Persist',
-        'fetch',
-        'fns',
-        'find',
-        'last',
-        'long',
-        'pidfile',
-        'scancls',
-        'skel',
-        'store',
-        'sync',
-        'types',
-        'whitelist'
-    )
+from .persist import __dir__ as __persist__
 
 
 def __dir__():
@@ -51,6 +33,3 @@ def __dir__():
         'parse',
         'spl'
     ) + __persist__()
-
-
-

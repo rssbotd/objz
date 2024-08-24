@@ -9,7 +9,6 @@ import os
 import pathlib
 import pwd
 import time
-import types as rtypes
 import _thread
 
 
@@ -91,24 +90,6 @@ def modnames(*args):
     for arg in args:
         res.extend([x for x in dir(arg) if not x.startswith("__")])
     return sorted(res)
-
-
-def named(obj):
-    "return a full qualified name of an object/function/module."
-    if isinstance(obj, rtypes.ModuleType):
-        return obj.__name__
-    typ = type(obj)
-    if '__builtins__' in dir(typ):
-        return obj.__name__
-    if '__self__' in dir(obj):
-        return f'{obj.__self__.__class__.__name__}.{obj.__name__}'
-    if '__class__' in dir(obj) and '__name__' in dir(obj):
-        return f'{obj.__class__.__name__}.{obj.__name__}'
-    if '__class__' in dir(obj):
-        return f"{obj.__class__.__module__}.{obj.__class__.__name__}"
-    if '__name__' in dir(obj):
-        return f'{obj.__class__.__name__}.{obj.__name__}'
-    return None
 
 
 def pidfile(pid):

@@ -8,9 +8,6 @@
 import threading
 
 
-from objx import Object
-
-
 from objz.default import Default
 
 
@@ -19,7 +16,7 @@ class Event(Default):
     "Event"
 
     def __init__(self):
-        Object.__init__(self)
+        Default.__init__(self)
         self._ready  = threading.Event()
         self._thr    = None
         self.orig    = ""

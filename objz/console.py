@@ -28,7 +28,7 @@ class Console(Reactor):
 
     def callback(self, evt):
         "wait for callback."
-        Client.callback(self, evt)
+        Reactor.callback(self, evt)
         evt.wait()
 
     def forever(self):
@@ -44,9 +44,11 @@ class Console(Reactor):
         return evt
 
     def raw(self, txt):
+        "echo text."
         print(txt)
 
     def show(self, evt):
+        "show results."
         for text in evt.result:
             self.raw(text)
 

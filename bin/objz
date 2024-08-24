@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # This file is placed in the Public Domain.
 #
-# pylint: disable=C0413,C0103
+# pylint: disable=C0413,C0103,E1121
 
 
 """OBJR - objects runtime
@@ -27,13 +27,14 @@
 import os
 import sys
 import termios
+import time
 
 
 sys.path.insert(0, os.getcwd())
 
 
-from objr import Reactor, errors
-from objz import Cfg, Console, cmnd, init, parse, scan
+from objr import errors
+from objz import Cfg, Console, Logging, cmnd, debug, init, parse, scan
 
 
 from objz import modules

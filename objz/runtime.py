@@ -1,5 +1,5 @@
 # This file is placed in the Public Domain.
-
+# pylint: disable=R0903,W0201
 
 "runtime"
 
@@ -18,7 +18,7 @@ STARTTIME   = time.time()
 class Config(Default):
 
     "configuration"
-    
+
 
 Cfg         = Config()
 Cfg.name    = Config.__module__.rsplit(".", maxsplit=1)[-2]

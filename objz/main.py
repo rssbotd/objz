@@ -5,14 +5,16 @@
 "main"
 
 
+from objr import launch
+
+
 from objz.console import Console
 from objz.cmds    import Commands, command
 from objz.event   import Event
-from objz.parse   import parse
 from objz.utils   import spl, skip
 
 
-def cmnd(txt, outer):
+def cmnd(txt):
     "do a command using the provided output function."
     if not txt:
         return None
