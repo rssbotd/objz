@@ -4,30 +4,24 @@
 
 "main"
 
-from objx.face    import Persist, skip, spl
-from objr.client  import Client, command
-from objr.cmds    import Commands
-from objr.errors  import Errors
-from objr.event   import Event
-from objr.log     import Logging
-from objr.thread  import launch
+
+from objz.console import Console
+from objz.cmds    import Commands, command
+from objz.event   import Event
+from objz.parse   import parse
+from objz.utils   import spl, skip
 
 
 def cmnd(txt, outer):
     "do a command using the provided output function."
     if not txt:
         return None
-    cli = Client(outer)
+    cli = Console()
     evn = Event()
     evn.txt = txt
     command(cli, evn)
     evn.wait()
     return evn
-
-
-def enable(outer):
-    "enable printing."
-    Client.out = Errors.out = Logging.out = outer
 
 
 def init(modstr, *pkgs, disable=None):
@@ -58,14 +52,12 @@ def scan(modstr, *pkgs, disable=""):
             if not module:
                 continue
             Commands.scan(module)
-            Persist.scan(module)
     return mds
 
 
 def __dir__():
     return (
         'cmnd',
-        'enable',
         'init',
         'scan'
     )

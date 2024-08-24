@@ -8,7 +8,8 @@
 import inspect
 
 
-from objx.face import Object
+from objx import Object
+from objz.parse import parse
 
 
 class Commands:
@@ -33,6 +34,16 @@ class Commands:
                 continue
             if 'event' in cmd.__code__.co_varnames:
                 Commands.add(cmd)
+
+
+def command(bot, evt):
+    "check for and run a command."
+    parse(evt)
+    func = getattr(Commands.cmds, evt.cmd, None)
+    if func:
+        func(evt)
+        bot.show(evt)
+    evt.ready()
 
 
 def __dir__():

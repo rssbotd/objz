@@ -4,18 +4,24 @@
 "console"
 
 
-from .client import Client
-from .event  import Event
+import time
 
 
-class Console(Client):
+from objr import Reactor
+
+
+from objz.event import Event
+from objz.cmds  import command
+
+
+class Console(Reactor):
 
     "Console"
 
-    def __init__(self, outer, inner, prompt="> "):
-        Client.__init__(self, outer)
-        self.inner = inner
+    def __init__(self, prompt="> "):
+        Reactor.__init__(self)
         self.prompt = prompt
+        self.register("command", command)
 
     def announce(self, txt):
         "echo text"
@@ -25,10 +31,15 @@ class Console(Client):
         Client.callback(self, evt)
         evt.wait()
 
+    def forever(self):
+        "run forever."
+        while True:
+            time.sleep(1.0)
+
     def poll(self):
         "poll console and create event."
         evt = Event()
-        evt.txt = self.inner(self.prompt)
+        evt.txt = input(self.prompt)
         evt.type = "command"
         return evt
 
