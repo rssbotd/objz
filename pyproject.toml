@@ -8,7 +8,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "objz"
-description = "objects zen"
+description = "objects shell"
 version = "1"
 authors = [
     {name = "Bart Thate", email = "rssbotd@gmail.com"},
@@ -29,9 +29,9 @@ classifiers = [
 
 
 [project.urls]
-"home" = "https://pypi.org/project/objr"
-"bugs" = "https://github.com/xobjectz/objr/issues"
-"source" = "https://github.com/xobjectz/objr"
+"home" = "https://pypi.org/project/objz"
+"bugs" = "https://github.com/xobjectz/objz/issues"
+"source" = "https://github.com/xobjectz/objz"
 
 
 [tool.setuptools]
@@ -40,12 +40,13 @@ script-files = [
 ]
 packages = [
     'objz',
+    'objz.modules'
 ]
 zip-safe=true
 
 
 [tool.setuptools.data-files]
-"share/doc/objr" = [
+"share/doc/objz" = [
     "README.rst"
 ]
 

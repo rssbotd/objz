@@ -43,6 +43,13 @@ class Console(Reactor):
         evt.type = "command"
         return evt
 
+    def raw(self, txt):
+        print(txt)
+
+    def show(self, evt):
+        for text in evt.result:
+            self.raw(text)
+
 
 def __dir__():
     return (

@@ -8,14 +8,17 @@
 import inspect
 import os
 import pathlib
+import _thread
+
+from objx import read, write
+from objx import Object, fqn, search, update
 
 
-from .decoder import read
-from .default import Default
-from .encoder import write
-from .object  import Object, fqn, ident, search, update
-from .lock    import disklock
-from .utils   import fntime, strip
+from objz.default import Default
+from objz.utils   import fntime, strip
+
+
+disklock = _thread.allocate_lock()
 
 
 class Persist(Object):
@@ -81,6 +84,11 @@ def fns(mtc=""):
                     ddd = os.path.join(rootdir, dname)
                     for fll in os.scandir(ddd):
                         yield strip(os.path.join(ddd, fll))
+
+
+def ident(obj):
+    "return an id for an object."
+    return os.path.join(fqn(obj), *str(datetime.datetime.now()).split())
 
 
 def long(name):

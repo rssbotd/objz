@@ -28,12 +28,14 @@ COPYRIGHT
 """
 
 
-from . import errors, reactor, thread
+from . import errors, reactor, repeater, thread, timer
 
 
-from .errors  import *
-from .reactor import *
-from .thread  import *
+from .errors   import *
+from .reactor  import *
+from .repeater import *
+from .thread   import *
+from .timer    import *
 
 
 def __dir__():
@@ -43,5 +45,7 @@ def __dir__():
         'later',
         'launch'
         'Reactor',
-        'Thread'
+        'Repeater',
+        'Thread',
+        'Timer'
     )
