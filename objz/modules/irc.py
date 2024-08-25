@@ -469,6 +469,10 @@ class IRC(Reactor, Output):
         "say text on channel."
         self.oput(channel, txt)
 
+    def show(self, evt):
+        for text in evt.result:
+            self.say(evt.channel, text)
+
     def some(self):
         "parse part of input text."
         self.events.connected.wait()

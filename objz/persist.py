@@ -16,7 +16,7 @@ from objx import Object, fqn, search, update
 
 
 from objz.default import Default
-from objz.utils   import fntime, strip
+from objz.utils   import cdir, fntime, strip
 
 
 disklock = _thread.allocate_lock()
@@ -70,6 +70,7 @@ def sync(obj, pth=None):
         if pth is None:
             pth = ident(obj)
         pth2 = store(pth)
+        cdir(pth2)
         write(obj, pth2)
         return pth
 

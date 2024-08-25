@@ -25,6 +25,7 @@
 
 
 import os
+import readline
 import sys
 import termios
 import time
@@ -33,7 +34,7 @@ import time
 sys.path.insert(0, os.getcwd())
 
 
-from objr import errors
+from objr import Errors, errors
 from objz import Cfg, Console, Logging, cmnd, debug, init, parse, scan, wrap
 
 
@@ -44,6 +45,7 @@ def main():
     "main"
     parse(Cfg, " ".join(sys.argv[1:]))
     Cfg.mod = ",".join(dir(modules))
+    Errors.out = print
     if "v" in Cfg.opts:
         Logging.out = print
         dte = " ".join(time.ctime(time.time()).replace("  ", " ").split()[1:])
