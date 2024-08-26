@@ -1,25 +1,22 @@
-#!/usr/bin/env python3
 # This file is placed in the Public Domain.
 #
 # pylint: disable=C0413,C0103,E1121
 
 
-"""OBJR - objects runtime
+"""OBJZ - objects shell
 
-    objr  <cmd> [key=val] [key==val]
-    objr  [-a] [-c] [-h] [-v]
+objz  <cmd> [key=val] [key==val]
 
-    options are:
+OPTIONS
 
-    -a     load all modules
     -c     start console
     -h     show help
     -v     use verbose
 
-    the cmd command show available commands.
+COMMANDS
     
-    $ objr cmd
-    cfg,cmd,dpl,err,exp,imp,mod,mre,nme,pwd,rem,res,rss,thr
+    $ objz cmd
+    md,dne,err,log,mod,tdo,thr,upt
 
 """
 
@@ -31,13 +28,8 @@ import termios
 import time
 
 
-sys.path.insert(0, os.getcwd())
-
-
 from objr import Errors, errors
-from objz import Cfg, Console, Logging, cmnd, debug, init, parse, scan, wrap
-
-
+from objz import Cfg, Console, Logging, cmnd, debug, parse, scan, wrap
 from objz import modules
 
 
@@ -46,18 +38,20 @@ def main():
     parse(Cfg, " ".join(sys.argv[1:]))
     Cfg.mod = ",".join(dir(modules))
     Errors.out = print
+    if "h" in Cfg.opts:
+        print(__doc__)
+        return
     if "v" in Cfg.opts:
         Logging.out = print
         dte = " ".join(time.ctime(time.time()).replace("  ", " ").split()[1:])
         debug(f'{dte} {Cfg.name.upper()} {Cfg.opts.upper()} {Cfg.mod.upper()}'.replace("  ", " "))
     scan(Cfg.mod, modules)
+    csl = Console()
     if "c" in Cfg.opts:
-        init(Cfg.mod, modules)
-        csl = Console()
         csl.start()
         csl.forever()
-    elif Cfg.otxt:
-        cmnd(Cfg.otxt)
+    if Cfg.otxt:
+        return cmnd(Cfg.otxt)
 
 
 if __name__ == "__main__":

@@ -15,9 +15,9 @@ authors = [
 ]
 readme = "README.rst"
 license = {text="Public Domain"}
-dependancies = [
+dependencies = [
     "objx",
-    "objr",
+    "objr"
 ]
 classifiers = [ 
     'Development Status :: 3 - Alpha',
@@ -28,6 +28,10 @@ classifiers = [
 ]
 
 
+[project.scripts]
+"objz" = "objz.__main__:wrapped"
+
+
 [project.urls]
 "home" = "https://pypi.org/project/objz"
 "bugs" = "https://github.com/xobjectz/objz/issues"
@@ -35,9 +39,6 @@ classifiers = [
 
 
 [tool.setuptools]
-script-files = [
-    "bin/objz",
-]
 packages = [
     'objz',
     'objz.modules'
@@ -49,6 +50,7 @@ zip-safe=true
 "share/doc/objz" = [
     "README.rst"
 ]
+
 
 [tool.setuptools.exclude-package-data]
 "*" = [
