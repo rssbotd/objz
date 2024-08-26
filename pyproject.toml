@@ -34,8 +34,8 @@ classifiers = [
 
 [project.urls]
 "home" = "https://pypi.org/project/objz"
-"bugs" = "https://github.com/xobjectz/objz/issues"
-"source" = "https://github.com/xobjectz/objz"
+"bugs" = "https://github.com/rssbotd/objz/issues"
+"source" = "https://github.com/rssbotd/objz"
 
 
 [tool.setuptools]
