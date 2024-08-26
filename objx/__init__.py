@@ -44,12 +44,14 @@ from . import decoder, encoder, object
 
 
 from .decoder import *
+from .default import *
 from .encoder import *
 from .object  import *
 
 
 def __dir__():
     return (
+        'Default',
         'Object',
         'construct',
         'dump',

@@ -8,7 +8,7 @@
 import threading
 
 
-from objz.default import Default
+from objx import Default
 
 
 class Event(Default):

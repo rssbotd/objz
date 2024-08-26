@@ -9,7 +9,7 @@ import os
 import time
 
 
-from objz.default import Default
+from objx import Default
 
 
 STARTTIME   = time.time()

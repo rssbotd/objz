@@ -11,12 +11,12 @@ import os
 import pathlib
 import _thread
 
+from objx import Default, Object
 from objx import read, write
-from objx import Object, fqn, search, update
+from objx import fqn, read, search, update, write
 
 
-from objz.default import Default
-from objz.utils   import cdir, fntime, strip
+from .utils   import cdir, fntime, strip
 
 
 disklock = _thread.allocate_lock()
