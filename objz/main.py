@@ -9,13 +9,10 @@ import sys
 import termios
 
 
-from objr import errors, launch
-
-
-from objz.console import Console
-from objz.cmds    import Commands, command
-from objz.event   import Event
-from objz.utils   import spl, skip
+from .console import Console
+from .cmds    import Commands, command
+from .event   import Event
+from .utils   import spl, skip
 
 
 def cmnd(txt):
@@ -28,23 +25,6 @@ def cmnd(txt):
     command(cli, evn)
     evn.wait()
     return evn
-
-
-def init(modstr, *pkgs, disable=None):
-    "scan modules for commands and classes"
-    thrs = []
-    for mod in spl(modstr):
-        if disable and mod in spl(disable):
-            continue
-        for pkg in pkgs:
-            modi = getattr(pkg, mod, None)
-            if not modi:
-                continue
-            if "init" not in dir(modi):
-                continue
-            thrs.append(launch(modi.init))
-            break
-    return thrs
 
 
 def scan(modstr, *pkgs, disable=""):
@@ -75,7 +55,6 @@ def wrap(func):
     finally:
         if old2:
             termios.tcsetattr(sys.stdin.fileno(), termios.TCSADRAIN, old2)
-    errors()
 
 
 def __dir__():

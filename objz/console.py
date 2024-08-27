@@ -4,42 +4,33 @@
 "console"
 
 
-import time
+import _thread
 
 
-from objr import Reactor
+from .event import Event
+from .cmds  import command
 
 
-from objz.event import Event
-from objz.cmds  import command
-
-
-class Console(Reactor):
+class Console:
 
     "Console"
-
-    def __init__(self, prompt="> "):
-        Reactor.__init__(self)
-        self.prompt = prompt
-        self.register("command", command)
 
     def announce(self, txt):
         "echo text"
 
-    def callback(self, evt):
-        "wait for callback."
-        Reactor.callback(self, evt)
-        evt.wait()
-
-    def forever(self):
-        "run forever."
+    def loop(self):
+        "proces events until interrupted."
         while True:
-            time.sleep(1.0)
+            try:
+                evt = self.poll()
+                command(self, evt)
+            except (KeyboardInterrupt, EOFError):
+                _thread.interrupt_main()
 
     def poll(self):
         "poll console and create event."
-        evt = Event()
-        evt.txt = input(self.prompt)
+        evt      = Event()
+        evt.txt  = input("> ")
         evt.type = "command"
         return evt
 

@@ -8,9 +8,7 @@ import threading
 import time
 
 
-from objx import Object, update
-from objz import STARTTIME
-from objz import laps
+from objz import STARTTIME, laps
 
 
 def thr(event):
@@ -19,8 +17,7 @@ def thr(event):
     for thread in sorted(threading.enumerate(), key=lambda x: x.name):
         if str(thread).startswith('<_'):
             continue
-        obj = Object()
-        update(obj, vars(thread))
+        obj = vars(thread)
         if getattr(obj, 'current', None):
             thread.name = obj.current
         if getattr(obj, 'sleep', None):

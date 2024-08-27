@@ -11,10 +11,8 @@ from .fleet   import *
 from .log     import *
 from .main    import *
 from .parse   import *
-from .persist import *
 from .runtime import STARTTIME, Cfg
 from .utils   import *
-from .persist import __dir__ as __persist__
 
 
 def __dir__():
@@ -28,8 +26,7 @@ def __dir__():
         'debug',
         'cmnd',
         'enable',
-        'init',
         'scan',
         'parse',
         'spl'
-    ) + __persist__()
+    )

@@ -4,7 +4,7 @@
 "parsing"
 
 
-from objx import Default
+from .default import Default
 
 
 def parse(obj, txt=None):
@@ -34,7 +34,7 @@ def parse(obj, txt=None):
             if key in obj.gets:
                 val = getattr(obj.gets, key)
                 value = val + "," + value
-            setattr(obj.gets, key, value)
+            obj.gets[key] = value
             continue
         if "=" in spli:
             key, value = spli.split("=", maxsplit=1)

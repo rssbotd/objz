@@ -8,23 +8,22 @@
 import inspect
 
 
-from objx import Object
-from objz.parse import parse
+from .parse import parse
 
 
 class Commands:
 
     "Commands"
 
-    cmds     = Object()
-    modnames = Object()
+    cmds     = {}
+    modnames = {}
 
     @staticmethod
     def add(func):
         "add command."
-        setattr(Commands.cmds, func.__name__, func)
+        Commands.cmds[func.__name__] = func
         if func.__module__ != "__main__":
-            setattr(Commands.modnames, func.__name__, func.__module__)
+            Commands.modnames[func.__name__] = func.__module__
 
     @staticmethod
     def scan(mod) -> None:
@@ -39,7 +38,7 @@ class Commands:
 def command(bot, evt):
     "check for and run a command."
     parse(evt)
-    func = getattr(Commands.cmds, evt.cmd, None)
+    func = Commands.cmds.get(evt.cmd, None)
     if func:
         func(evt)
         bot.show(evt)

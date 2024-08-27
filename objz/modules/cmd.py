@@ -4,9 +4,9 @@
 "list of commands"
 
 
-from objx import keys
 from objz import Commands
+
 
 def cmd(event):
     "list commands."
-    event.reply(",".join(sorted(keys(Commands.cmds))))
+    event.reply(",".join(sorted(Commands.cmds.keys())))
