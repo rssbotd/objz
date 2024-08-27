@@ -9,16 +9,12 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "objz"
 description = "objects shell"
-version = "2"
+version = "4"
 authors = [
     {name = "Bart Thate", email = "rssbotd@gmail.com"},
 ]
 readme = "README.rst"
 license = {text="Public Domain"}
-dependencies = [
-    "objx",
-    "objr"
-]
 classifiers = [ 
     'Development Status :: 3 - Alpha',
     'License :: Public Domain',
