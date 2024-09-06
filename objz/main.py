@@ -6,10 +6,8 @@
 
 
 from .client  import Client, command
-from .errors  import Errors, later
 from .event   import Event
 from .log     import Logging
-from .thread  import launch
 from .utils   import spl
 
 
@@ -27,7 +25,7 @@ def cmnd(txt, outer):
 
 def enable(outer):
     "enable printing."
-    Client.out = Errors.out = Logging.out = outer
+    Client.out = Logging.out = outer
 
 
 def init(modstr, *pkgs, disable=None):
@@ -42,7 +40,7 @@ def init(modstr, *pkgs, disable=None):
                 continue
             if "init" not in dir(modi):
                 continue
-            thrs.append(launch(modi.init))
+            modi.init()
             break
     return thrs
 
@@ -53,8 +51,6 @@ def wrap(func):
         func()
     except (KeyboardInterrupt, EOFError):
         pass
-    except Exception as exc:
-        later(exc)
 
 
 def __dir__():
