@@ -5,21 +5,19 @@
 "main"
 
 
-import sys
-import termios
-
-
-from .console import Console
-from .cmds    import Commands, command
+from .client  import Client, command
+from .errors  import Errors, later
 from .event   import Event
-from .utils   import spl, skip
+from .log     import Logging
+from .thread  import launch
+from .utils   import spl
 
 
-def cmnd(txt):
+def cmnd(txt, outer):
     "do a command using the provided output function."
     if not txt:
         return None
-    cli = Console()
+    cli = Client(outer)
     evn = Event()
     evn.txt = txt
     command(cli, evn)
@@ -27,40 +25,43 @@ def cmnd(txt):
     return evn
 
 
-def scan(modstr, *pkgs, disable=""):
+def enable(outer):
+    "enable printing."
+    Client.out = Errors.out = Logging.out = outer
+
+
+def init(modstr, *pkgs, disable=None):
     "scan modules for commands and classes"
-    mds = []
-    for modname in spl(modstr):
-        if skip(modname, disable):
+    thrs = []
+    for mod in spl(modstr):
+        if disable and mod in spl(disable):
             continue
         for pkg in pkgs:
-            module = getattr(pkg, modname, None)
-            if not module:
+            modi = getattr(pkg, mod, None)
+            if not modi:
                 continue
-            Commands.scan(module)
-    return mds
+            if "init" not in dir(modi):
+                continue
+            thrs.append(launch(modi.init))
+            break
+    return thrs
 
 
 def wrap(func):
-    "restore console."
-    old2 = None
-    try:
-        old2 = termios.tcgetattr(sys.stdin.fileno())
-    except termios.error:
-        pass
+    "catch exceptions"
     try:
         func()
     except (KeyboardInterrupt, EOFError):
-        print("")
-    finally:
-        if old2:
-            termios.tcsetattr(sys.stdin.fileno(), termios.TCSADRAIN, old2)
+        pass
+    except Exception as exc:
+        later(exc)
 
 
 def __dir__():
     return (
+        'boot',
         'cmnd',
+        'enable',
         'init',
-        'scan',
         'wrap'
     )
