@@ -13,6 +13,10 @@ version = "5"
 authors = [
     {name = "Bart Thate", email = "rssbotd@gmail.com"},
 ]
+dependencies=[
+    "objx",
+    "objx"
+]
 readme = "README.rst"
 license = {text="Public Domain"}
 classifiers = [ 
