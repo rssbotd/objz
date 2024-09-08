@@ -9,7 +9,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "objz"
 description = "objects shell"
-version = "5"
+version = "6"
 authors = [
     {name = "Bart Thate", email = "rssbotd@gmail.com"},
 ]
@@ -24,10 +24,6 @@ classifiers = [
 ]
 
 
-[project.scripts]
-"objz" = "objz.__main__:wrapped"
-
-
 [project.urls]
 "home" = "https://pypi.org/project/objz"
 "bugs" = "https://github.com/rssbotd/objz/issues"
@@ -37,7 +33,6 @@ classifiers = [
 [tool.setuptools]
 packages = [
     'objz',
-    'objz.modules'
 ]
 zip-safe=true
 
