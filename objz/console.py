@@ -7,25 +7,18 @@
 import _thread
 
 
-from .event import Event
-from .cmds  import command
+from .client  import Client, command
+from .event   import Event
 
 
-class Console:
+class Console(Client):
 
     "Console"
 
-    def announce(self, txt):
-        "echo text"
-
-    def loop(self):
-        "proces events until interrupted."
-        while True:
-            try:
-                evt = self.poll()
-                command(self, evt)
-            except (KeyboardInterrupt, EOFError):
-                _thread.interrupt_main()
+    def callback(self, evt):
+        "wait for callback."
+        Client.callback(self, evt)
+        evt.wait()
 
     def poll(self):
         "poll console and create event."
@@ -33,15 +26,6 @@ class Console:
         evt.txt  = input("> ")
         evt.type = "command"
         return evt
-
-    def raw(self, txt):
-        "echo text."
-        print(txt)
-
-    def show(self, evt):
-        "show results."
-        for text in evt.result:
-            self.raw(text)
 
 
 def __dir__():

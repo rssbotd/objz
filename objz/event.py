@@ -8,7 +8,8 @@
 import threading
 
 
-from .default import Default
+from objx.default import Default
+from objz.fleet   import Fleet
 
 
 class Event(Default):
@@ -18,11 +19,20 @@ class Event(Default):
     def __init__(self):
         Default.__init__(self)
         self._ready  = threading.Event()
-        self._thr    = None
         self.orig    = ""
         self.result  = []
+        self.thr    = None
         self.txt     = ""
         self.type    = "command"
+
+    def display(self):
+        bot = Fleet.get(self.orig)
+        if bot:
+            for text in self.result:
+                bot.say(self.channel, text)
+
+    def nop(self):
+        "do nothing"
 
     def ready(self):
         "event is ready."
@@ -35,8 +45,8 @@ class Event(Default):
     def wait(self, timeout=None):
         "wait for event to be ready."
         self._ready.wait(timeout)
-        if self._thr:
-            self._thr.join()
+        if self.thr:
+            self.thr.join()
         return self.result
 
 

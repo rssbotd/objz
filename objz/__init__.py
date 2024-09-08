@@ -4,29 +4,35 @@
 "objects shell"
 
 
-from .cmds    import *
+from . import client, command, console, event, fleet, main, parse 
+
+
+from .client  import *
+from .command import *
 from .console import *
 from .event   import *
 from .fleet   import *
-from .log     import *
 from .main    import *
 from .parse   import *
-from .runtime import STARTTIME, Cfg
-from .utils   import *
 
 
 def __dir__():
     return (
-        'Cfg',
+        'Client',
         'Commands',
+        'Config',
         'Console',
         'Event',
         'Fleet',
         'Logging',
-        'debug',
-        'cmnd',
-        'enable',
-        'scan',
+        'command',
+        'forever',
+        'initer',
+        'laps',
+        'modnames',
         'parse',
-        'spl'
+        'pidfile',
+        'privileges',
+        'spl',
+        'wrap'
     )
