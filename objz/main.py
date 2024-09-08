@@ -1,5 +1,5 @@
 # This file is placed in the Public Domain.
-
+# pylint: disable=R0903,E1102
 
 "main"
 
@@ -46,8 +46,8 @@ def debug(txt):
 
 
 def enable(outer):
+    "enable logging"
     Logging.out = outer
-
 
 
 def forever():

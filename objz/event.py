@@ -26,6 +26,7 @@ class Event(Default):
         self.type    = "command"
 
     def display(self):
+        "display results."
         bot = Fleet.get(self.orig)
         if bot:
             for text in self.result:

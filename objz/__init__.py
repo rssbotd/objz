@@ -4,7 +4,7 @@
 "objects shell"
 
 
-from . import client, command, console, event, fleet, main, parse 
+from . import client, command, console, event, fleet, main, parse
 
 
 from .client  import *

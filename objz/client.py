@@ -1,5 +1,5 @@
 # This file is placed in the Public Domain.
-
+# pylint: disable=W0613,W0718
 
 "client"
 
@@ -20,7 +20,7 @@ class Client(Reactor):
 
     cache = Object()
 
-    def __init__(self, outer=None):
+    def __init__(self):
         Reactor.__init__(self)
         self.register("command", command)
         Fleet.register(self)

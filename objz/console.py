@@ -4,10 +4,7 @@
 "console"
 
 
-import _thread
-
-
-from .client  import Client, command
+from .client  import Client
 from .event   import Event
 
 
@@ -26,6 +23,10 @@ class Console(Client):
         evt.txt  = input("> ")
         evt.type = "command"
         return evt
+
+    def raw(self, txt):
+        "overload this."
+        raise NotImplementedError
 
 
 def __dir__():
