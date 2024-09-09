@@ -5,13 +5,11 @@
 
 
 from objr.reactor import Reactor
-from objt.errors  import later
 from objx.broker  import Broker
 from objx.object  import Object
 
 
-from .command import Commands
-from .parser   import parse
+from .command import command
 
 
 class Client(Reactor):
@@ -26,6 +24,7 @@ class Client(Reactor):
         self.register("command", command)
 
     def display(self, evt):
+        "display event results."
         for text in evt.result:
             self.say(evt.channel, text)
 
@@ -40,20 +39,6 @@ class Client(Reactor):
     def raw(self, txt):
         "print to screen."
         raise NotImplementedError
-
-
-def command(bot, evt):
-    "check for and run a command."
-    parse(evt)
-    func = Commands.cmds.get(evt.cmd, None)
-    if func:
-        try:
-            func(evt)
-        except Exception as ex:
-            later(ex)
-    if "ready" in dir(evt):
-        bot.display(evt)
-        evt.ready()
 
 
 def __dir__():
