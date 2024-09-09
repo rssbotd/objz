@@ -4,8 +4,10 @@
 "console"
 
 
-from .client  import Client
-from .event   import Event
+from objr  import Event
+
+
+from .client import Client
 
 
 class Console(Client):

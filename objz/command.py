@@ -5,6 +5,10 @@
 "commands"
 
 
+from objt.errors import later
+from objz.parser import parse
+
+
 class Commands:
 
     "Commands"
@@ -20,7 +24,23 @@ class Commands:
             Commands.modnames[func.__name__] = func.__module__
 
 
+def command(bot, evt):
+    "check for and run a command."
+    parse(evt)
+    func = Commands.cmds.get(evt.cmd, None)
+    if func:
+        try:
+            func(evt)
+        except Exception as ex:
+            later(ex)
+    if "ready" in dir(evt):
+        bot.display(evt)
+        evt.ready()
+
+
 def __dir__():
     return (
         'Commands',
+        'command',
+        'parse'
     )
