@@ -5,8 +5,10 @@
 "commands"
 
 
-from objt.errors import later
-from objz.parser import parse
+import time
+
+
+from .thread import later
 
 
 class Commands:
@@ -26,16 +28,14 @@ class Commands:
 
 def command(bot, evt):
     "check for and run a command."
-    parse(evt)
     func = Commands.cmds.get(evt.cmd, None)
     if func:
         try:
             func(evt)
+            bot.display(evt)
         except Exception as ex:
             later(ex)
-    if "ready" in dir(evt):
-        bot.display(evt)
-        evt.ready()
+            time.sleep(1)
 
 
 def __dir__():
