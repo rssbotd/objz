@@ -19,7 +19,6 @@ dependencies = [
     "objr",
     "objt",
     "objw",
-    "objz"
 ]
 classifiers = [ 
     'Development Status :: 3 - Alpha',
