@@ -5,13 +5,14 @@
 
 
 
-from . import broker, client, command, console, main, parser
+from . import broker, client, command, console, default, main, parser
 
 
 from .broker  import *
 from .client  import *
 from .command import *
 from .console import *
+from .default import *
 from .main    import *
 from .parser  import *
 
@@ -23,6 +24,7 @@ def __dir__():
         'Commands',
         'Config',
         'Console',
+        'Default',
         'Logging',
         'command',
         'forever',
