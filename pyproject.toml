@@ -9,7 +9,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "objz"
 description = "objects shell"
-version = "8"
+version = "9"
 authors = [
     {name = "Bart Thate", email = "rssbotd@gmail.com"},
 ]
