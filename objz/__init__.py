@@ -12,14 +12,10 @@ import time
 import _thread
 
 
-from objw import Workdir
-from objr import later, launch
-
-
 "Config"
 
 
-class Config(Default):
+class Config:
 
     "Config"
 
@@ -27,7 +23,6 @@ class Config(Default):
         self.name    = name
         self.wdr     = os.path.expanduser(f"~/.{name}")
         self.pidfile = os.path.join(self.wdr, f"{name}.pid")
-        Workdir.wdr  = self.wdr
 
 
 "event"
@@ -94,12 +89,8 @@ def command(bot, evt):
     parse(evt)
     func = Commands.cmds.get(evt.cmd, None)
     if func:
-        try:
-            func(evt)
-            bot.display(evt)
-        except Exception as ex:
-            later(ex)
-            time.sleep(1)
+        func(evt)
+        bot.display|(evt)
 
 
 "utilities"
@@ -180,7 +171,7 @@ def initer(modstr, *pkgs, disable=None):
                 continue
             if "init" not in dir(modi):
                 continue
-            launch(modi.init)
+            modi.init()
             break
     return thrs
 
